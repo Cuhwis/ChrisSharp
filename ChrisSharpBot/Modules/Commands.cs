@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections;
 using System.Net;
 using Discord;
+using System.Linq;
 
 namespace ChrisSharpBot.Modules
 {
@@ -19,10 +20,49 @@ namespace ChrisSharpBot.Modules
         {
             await ReplyAsync("Pong");
         }
-        [Command("CoolerChris")]
+        [Command("fntrack")]
+        public async Task FnTrack(string user)
+        {
+            await ReplyAsync($"https://fortnitetracker.com/profile/all/{user}");
+        }
+        [Command("coolpersontest")]
         public async Task Chris()
         {
-            await ReplyAsync("Chris R. of course");
+            await ReplyAsync("you mean <@354510274411233281>");
+        }
+        [Command("getuserid")]
+        public async Task getUserID(SocketUser user)
+        {
+            await ReplyAsync($"{Context.Message.Author.Username}, requested ID : {user.Id}");
+        }
+        [Command("kick")]
+        //TODO Get working
+        public async Task KickUser(SocketGuildUser userName)
+        {
+            var user = Context.Message.Author as SocketGuildUser;
+            var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "creator");
+            if (!userName.Roles.Contains(role))
+            {
+                if (user.GuildPermissions.KickMembers)
+                {
+                    await userName.KickAsync();
+                    await ReplyAsync($"{Context.Message.Author.Mention} : {userName} has been kicked.");
+                }
+            }
+        }
+        [Command("timeout")]
+        //TODO Get working
+        public async Task TimeOut(SocketUser userName, double seconds = 0)
+        {
+            var user = Context.User as SocketGuildUser;
+            var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "Role");
+
+            //if (Context.Guild.Roles)
+            //var timeout = DateTime.Now + DateTime.Now.AddMinutes(seconds);
+            //if (DateTime.Now > timeout)
+            //{
+
+            //}
         }
         [Command("delete")]
         public async Task DeleteMsgs(SocketUser user, int numMsgs = 0)
@@ -135,5 +175,20 @@ namespace ChrisSharpBot.Modules
                     await ReplyAsync($"{user.Mention} Please use format \"!linkgithub https://github.com/example\"");
             }
         }
+        //[Command("griffsays")]
+        //public async Task Likur()
+        //{
+        //    await ReplyAsync("LIKKUUUUUURRRRRRRRRRRR");
+        //}
+        //[Command("choco")]
+        //public async Task Kwasi()
+        //{
+        //    await ReplyAsync("<@354510274411233281> ");
+        //}
+        //[Command("bot")]
+        //public async Task bot()
+        //{
+        //    await ReplyAsync("<@205209327487680513> : ");
+        //}
     }
 }

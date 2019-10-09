@@ -36,7 +36,7 @@ namespace ChrisSharpBot
         private async Task clientReady()
         {
             Console.WriteLine($"[{DateTime.Now}] Logged in as: {_client.CurrentUser.Username}");
-            await _client.SetGameAsync("ChrisFix", null, ActivityType.Watching);
+            await _client.SetGameAsync("Despacito", null, ActivityType.Listening);
             Console.WriteLine($"[{DateTime.Now}] Client: Ready");
         }
         private Task _client_Log(LogMessage arg)
@@ -53,7 +53,7 @@ namespace ChrisSharpBot
 
         private async Task HandleCommandAsync(SocketMessage arg)
         {
-            string prefix = "!";
+            string prefix = "/";
             var message = arg as SocketUserMessage;
             var context = new SocketCommandContext(_client, message);
             if (message.Author.IsBot) return;
