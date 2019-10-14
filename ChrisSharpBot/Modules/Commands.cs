@@ -32,24 +32,27 @@ namespace ChrisSharpBot.Modules
             await ReplyAsync("you mean <@354510274411233281>");
         }
         [Command("getuserid")]
+        [Summary("This allows users to get UserID without dev mode.")]
         public async Task getUserID(SocketUser user)
         {
             await ReplyAsync($"{Context.Message.Author.Username}, requested ID : {user.Id}");
         }
         [Command("kick")]
+        [Remarks("!kick [user] [reason]")]
+        [Summary("This allows admins to kick users.")]
+        [RequireBotPermission(GuildPermission.KickMembers)]
         [RequireUserPermission(GuildPermission.KickMembers)]
-        //TODO Get working
-        public async Task KickUser(SocketGuildUser userName)
+        //TODO Wont Work. Need Fixin'
+        public async Task KickUser(SocketUser user, string reason = null)
         {
-            var user = Context.Message.Author as SocketGuildUser;
-            var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "creator");
-            if (!userName.Roles.Contains(role))
+            try
             {
-                if (user.GuildPermissions.KickMembers)
-                {
-                    await userName.KickAsync();
-                    await ReplyAsync($"{Context.Message.Author.Mention} : {userName} has been kicked.");
-                }
+                await (user as IGuildUser).KickAsync(reason);
+                await ReplyAsync($"{Context.Message.Author.Username}, {user} has been kicked.");
+            }
+            catch
+            {
+                await ReplyAsync($"{Context.Message.Author.Mention} Please use format \"{prefix}kick @example#1337 \"");
             }
         }
         [Command("timeout")]
@@ -65,6 +68,15 @@ namespace ChrisSharpBot.Modules
             //{
 
             //}
+        }
+        [Command("whoami")]
+        public async Task WhoAmI()
+        {
+            var user = Context.Message.Author;
+            if (user.Id == 205209327487680513)
+                await (user as IGuildUser).SendMessageAsync("You are Mrs. Ruaboro");
+            if (user.Id == 354510274411233281)
+                await (user as IGuildUser).SendMessageAsync("You are Mr. Ruaboro");
         }
         [Command("delete")]
         [Summary("Clear an amount of messages from user in the channel")]
@@ -102,6 +114,7 @@ namespace ChrisSharpBot.Modules
             }
         }
         [Command("delete")]
+        [Summary("Clear an amount of messages in the channel")]
         [RequireBotPermission(GuildPermission.ManageMessages)]
         [RequireUserPermission(GuildPermission.ManageMessages)]
         public async Task DeleteMsgs(int numMsgs = 0)
@@ -125,6 +138,7 @@ namespace ChrisSharpBot.Modules
             }
         }
         [Command("github")]
+        [Summary("Get the link to others Github!")]
         public async Task GitHub(SocketUser user)
         {
             try
@@ -149,6 +163,7 @@ namespace ChrisSharpBot.Modules
             }
         }
         [Command("linkgithub")]
+        [Summary("Link your github so other people can see your hardwork")]
         public async Task LinkGitHub(string gitHub = null)
         {
             //https://github.com/discordapp
