@@ -15,6 +15,7 @@ namespace ChrisSharpBot.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
+        string prefix = "/";
         [Command("ping")]
         public async Task Ping()
         {
@@ -36,6 +37,7 @@ namespace ChrisSharpBot.Modules
             await ReplyAsync($"{Context.Message.Author.Username}, requested ID : {user.Id}");
         }
         [Command("kick")]
+        [RequireUserPermission(GuildPermission.KickMembers)]
         //TODO Get working
         public async Task KickUser(SocketGuildUser userName)
         {
@@ -65,6 +67,9 @@ namespace ChrisSharpBot.Modules
             //}
         }
         [Command("delete")]
+        [Summary("Clear an amount of messages from user in the channel")]
+        [RequireBotPermission(GuildPermission.ManageMessages)]
+        [RequireUserPermission(GuildPermission.ManageMessages)]
         public async Task DeleteMsgs(SocketUser user, int numMsgs = 0)
         {
             int cap = 20;
@@ -93,10 +98,12 @@ namespace ChrisSharpBot.Modules
             }
             catch
             {
-                await ReplyAsync($"{Context.Message.Author.Mention} Please use format \"!delete @example#1337 5\"");
+                await ReplyAsync($"{Context.Message.Author.Mention} Please use format \"{prefix}delete @example#1337 5\"");
             }
         }
         [Command("delete")]
+        [RequireBotPermission(GuildPermission.ManageMessages)]
+        [RequireUserPermission(GuildPermission.ManageMessages)]
         public async Task DeleteMsgs(int numMsgs = 0)
         {
             int cap = 100;
@@ -114,7 +121,7 @@ namespace ChrisSharpBot.Modules
             }
             catch
             {
-                await ReplyAsync($"{Context.Message.Author.Mention} Please use format \"!delete 5\"");
+                await ReplyAsync($"{Context.Message.Author.Mention} Please use format \"{prefix}delete 5\"");
             }
         }
         [Command("github")]
@@ -138,7 +145,7 @@ namespace ChrisSharpBot.Modules
             }
             catch
             {
-                await ReplyAsync($"{Context.Message.Author.Mention} Please use format \"!github @example#1337\"");
+                await ReplyAsync($"{Context.Message.Author.Mention} Please use format \"{prefix}github @example#1337\"");
             }
         }
         [Command("linkgithub")]
@@ -149,7 +156,7 @@ namespace ChrisSharpBot.Modules
             var user = Context.Message.Author;
             if (gitHub == null || !gitHub.ToLower().Contains("github.com/") || gitHub.Contains("?"))
             {
-                await ReplyAsync($"{user.Mention} Please use format \"!linkgithub https://github.com/example\"");
+                await ReplyAsync($"{user.Mention} Please use format \"{prefix}linkgithub https://github.com/example\"");
             }
             else
             {
@@ -172,7 +179,7 @@ namespace ChrisSharpBot.Modules
                     await ReplyAsync($"{user.Mention} GitHub[{gitHub.Split(".com/", StringSplitOptions.RemoveEmptyEntries)[1]}]: Linked."); //
                 }
                 else
-                    await ReplyAsync($"{user.Mention} Please use format \"!linkgithub https://github.com/example\"");
+                    await ReplyAsync($"{user.Mention} Please use format \"{prefix}linkgithub https://github.com/example\"");
             }
         }
         //[Command("griffsays")]
