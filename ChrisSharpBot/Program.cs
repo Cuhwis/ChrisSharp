@@ -23,7 +23,7 @@ namespace ChrisSharpBot
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
 
-            string token = "NjA2MzI0NjEyNDkzNzM4MDA4.XZp_rQ.uNl2vA16S_4druOCGgndFKD1kzE";
+            string token = "SECRET";
             //events
             _client.Log += _client_Log;
             _client.Ready += clientReady;

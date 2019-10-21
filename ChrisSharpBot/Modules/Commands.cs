@@ -15,7 +15,7 @@ namespace ChrisSharpBot.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
-        string prefix = "/";
+        public string prefix = "/";
         [Command("ping")]
         public async Task Ping()
         {
@@ -197,20 +197,20 @@ namespace ChrisSharpBot.Modules
                     await ReplyAsync($"{user.Mention} Please use format \"{prefix}linkgithub https://github.com/example\"");
             }
         }
-        //[Command("griffsays")]
-        //public async Task Likur()
-        //{
-        //    await ReplyAsync("LIKKUUUUUURRRRRRRRRRRR");
-        //}
+        [Command("griffsays")]
+        public async Task Likur()
+        {
+            await ReplyAsync("LIKKUUUUUURRRRRRRRRRRR");
+        }
         //[Command("choco")]
         //public async Task Kwasi()
         //{
         //    await ReplyAsync("<@354510274411233281> ");
         //}
-        //[Command("bot")]
-        //public async Task bot()
-        //{
-        //    await ReplyAsync("<@205209327487680513> : ");
-        //}
+        [Command("bot")]
+        public async Task bot()
+        {
+            await ReplyAsync("<@205209327487680513> : https://ibb.co/qM21Tqy");
+        }
     }
 }
