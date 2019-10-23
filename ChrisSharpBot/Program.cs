@@ -16,22 +16,29 @@ namespace ChrisSharpBot
         private IServiceProvider _services;
         public async Task RunBotAsync()
         {
-            _client = new DiscordSocketClient();
+            _client = new DiscordSocketClient(new DiscordSocketConfig { MessageCacheSize = 100, LogLevel = LogSeverity.Critical });
             _commands = new CommandService();
             _services = new ServiceCollection()
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
 
-            string token = "NjA2MzI0NjEyNDkzNzM4MDA4.XZp_rQ.uNl2vA16S_4druOCGgndFKD1kzE";
-
+            string token = "SECRET";
+            //events
             _client.Log += _client_Log;
+            _client.Ready += clientReady;
+
             await RegisterCommandsAsync();
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
             await Task.Delay(-1);
         }
-
+        private async Task clientReady()
+        {
+            Console.WriteLine($"[{DateTime.Now}] Logged in as: {_client.CurrentUser.Username}");
+            await _client.SetGameAsync("Despacito", null, ActivityType.Listening);
+            Console.WriteLine($"[{DateTime.Now}] Client: Ready");
+        }
         private Task _client_Log(LogMessage arg)
         {
             Console.WriteLine(arg);
@@ -46,7 +53,7 @@ namespace ChrisSharpBot
 
         private async Task HandleCommandAsync(SocketMessage arg)
         {
-            string prefix = "!";
+            string prefix = "/";
             var message = arg as SocketUserMessage;
             var context = new SocketCommandContext(_client, message);
             if (message.Author.IsBot) return;
@@ -55,7 +62,10 @@ namespace ChrisSharpBot
             if (message.HasStringPrefix(prefix, ref argPos))
             {
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
-                if (!result.IsSuccess) Console.WriteLine(result.ErrorReason);
+                if (!result.IsSuccess)
+                {
+                    await context.Channel.SendMessageAsync($"{context.Message.Author.Mention} Error: {result.ErrorReason}");
+                }
             }
         }
     }
