@@ -10,13 +10,19 @@ using Discord.WebSocket;
 using System.IO;
 using System.Collections;
 using System.Net;
-using Discord;
 using System.Linq;
+using ChrisSharpBot.Modules;
+using HtmlAgilityPack;
 
 namespace ChrisSharpBot.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
+        [Command("test")]
+        public async Task test()
+        {
+            await ReplyAsync("https://google.com/");
+        }
         public string prefix = "/";
         [Command("ping")]
         public async Task Ping()
@@ -35,21 +41,20 @@ namespace ChrisSharpBot.Modules
         }
         [Command("getuserid")]
         [Summary("This allows users to get UserID without dev mode.")]
-        public async Task getUserID(SocketUser user)
+        public async Task getUserID(SocketUser user, string reason = null)
         {
-            await ReplyAsync($"{Context.Message.Author.Username}, requested ID : {user.Id}");
+            await ReplyAsync(null, false, EmbedColorMsg.ColoredMsg($" {Context.Message.Author.Username}, requested ID : {user.Id}"));
         }
         [Command("kick")]
-        [Remarks("!kick [user] [reason]")]
+        [Remarks("/kick [user] [reason]")]
         [Summary("This allows admins to kick users.")]
-        [RequireBotPermission(GuildPermission.KickMembers)]
         [RequireUserPermission(GuildPermission.KickMembers)]
-        //TODO Wont Work. Need Fixin'
-        public async Task KickUser(SocketUser user, string reason = null)
+        [RequireBotPermission(GuildPermission.KickMembers)]
+        public async Task KickUser(IGuildUser user, string reason = "No reason provided.")
         {
             try
             {
-                await (user as IGuildUser).KickAsync(reason);
+                await user.KickAsync(reason);
                 await ReplyAsync($"{Context.Message.Author.Username}, {user} has been kicked.");
             }
             catch
@@ -58,24 +63,19 @@ namespace ChrisSharpBot.Modules
             }
         }
         [Command("timeout")]
-        //TODO Get working
-        public async Task TimeOut(SocketUser userName, double seconds = 0)
+        [Remarks("/kick [user] [reason]")]
+        [Summary("This allows admins to kick users.")]
+        [RequireUserPermission(GuildPermission.ManageRoles)]
+        [RequireBotPermission(GuildPermission.ManageRoles)]
+        public async Task TimeOut(IGuildUser user, double sec = 0)
         {
-            var user = Context.User as SocketGuildUser;
-            var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "Role");
 
-            //if (Context.Guild.Roles)
-            //var timeout = DateTime.Now + DateTime.Now.AddMinutes(seconds);
-            //if (DateTime.Now > timeout)
-            //{
-
-            //}
         }
         [Command("whoami")]
         public async Task WhoAmI()
         {
             var user = Context.Message.Author;
-            if (user.Id == 205209327487680513)
+            if (user.Id == 205209327487680513 || user.Id == 451585633714962432)
                 await (user as IGuildUser).SendMessageAsync("You are Mrs. Ruaboro");
             if (user.Id == 354510274411233281)
                 await (user as IGuildUser).SendMessageAsync("You are Mr. Ruaboro");
@@ -138,6 +138,33 @@ namespace ChrisSharpBot.Modules
             {
                 await ReplyAsync($"{Context.Message.Author.Mention} Please use format \"{prefix}delete 5\"");
             }
+        }
+        [Command("meme")]
+        [Summary("Get a meme from Gerards Website!")]
+        public async Task meme()
+        {
+            string path = "https://litmemes.blob.core.windows.net/images/";
+            WebClient temp = new WebClient();
+            string response = temp.DownloadString(path);
+
+            // Load the Html into the agility pack
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(response);
+
+            // Now, using LINQ to get all Images
+            List<HtmlNode> imageNodes = null;
+            imageNodes = (from HtmlNode node in doc.DocumentNode.SelectNodes("//img")
+                          where node.Name == "img" && node.Attributes["class"] != null && node.Attributes["class"].Value.StartsWith("https://litmemes.blob.core.windows.net/images/")
+                          select node).ToList();
+            foreach (var item in imageNodes)
+            {
+                await ReplyAsync(item.ToString());
+            }
+        }
+        [Command("github")]
+        public async Task GitHub()
+        {
+            await ReplyAsync("/github @user, will display user's github\n");
         }
         [Command("github")]
         [Summary("Get the link to others Github!")]
@@ -204,27 +231,10 @@ namespace ChrisSharpBot.Modules
         {
             await ReplyAsync("LIKKUUUUUURRRRRRRRRRRR");
         }
-        //[Command("choco")]
-        //public async Task Kwasi()
-        //{
-        //    await ReplyAsync("<@354510274411233281> ");
-        //}
         [Command("bot")]
         public async Task bot()
         {
             await ReplyAsync("<@205209327487680513> : https://ibb.co/qM21Tqy");
-        }
-        [Command("github")]
-        public async Task GitHub()
-        {
-            await ReplyAsync(
-                "+github @user, will display user's github\n");
-            var user = Context.User;
-        }
-        [Command("deletemessages")]
-        public async Task DeleteMessages([Remainder]string args = null)
-        {
-
         }
         [Command("8ball")]
         [Alias("ask")]
@@ -293,6 +303,11 @@ namespace ChrisSharpBot.Modules
             embed.Description = sb.ToString();
             // this will reply with the embed
             await ReplyAsync(null, false, embed.Build());
+        }
+        [Command("awwskeetskeet")]
+        public async Task skeet()
+        {
+            await ReplyAsync("MOTHA FUCKAAAAAAAAA");
         }
 
     }
