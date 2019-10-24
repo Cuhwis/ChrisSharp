@@ -13,6 +13,7 @@ using System.Net;
 using System.Linq;
 using ChrisSharpBot.Modules;
 using HtmlAgilityPack;
+using System.Text.RegularExpressions;
 
 namespace ChrisSharpBot.Modules
 {
@@ -141,24 +142,26 @@ namespace ChrisSharpBot.Modules
         }
         [Command("meme")]
         [Summary("Get a meme from Gerards Website!")]
+        //TODO Bruh
         public async Task meme()
         {
             string path = "https://litmemes.blob.core.windows.net/images/";
             WebClient temp = new WebClient();
             string response = temp.DownloadString(path);
-
-            // Load the Html into the agility pack
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(response);
-
-            // Now, using LINQ to get all Images
-            List<HtmlNode> imageNodes = null;
-            imageNodes = (from HtmlNode node in doc.DocumentNode.SelectNodes("//img")
-                          where node.Name == "img" && node.Attributes["class"] != null && node.Attributes["class"].Value.StartsWith("https://litmemes.blob.core.windows.net/images/")
-                          select node).ToList();
-            foreach (var item in imageNodes)
+            List<string> urls = new List<string>();
+            //var document = new HtmlWeb().Load(path);
+            //var urls = document.DocumentNode.Descendants("img")
+            //                                .Select(e => e.GetAttributeValue("src", null))
+            //                                .Where(s => !String.IsNullOrEmpty(s));
+            urls.Add("test case");
+            foreach (Match m in Regex.Matches(response, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase | RegexOptions.Multiline))
             {
-                await ReplyAsync(item.ToString());
+                string src = m.Groups[1].Value;
+                urls.Add(src);
+            }
+            foreach (var item in urls)
+            {
+                await ReplyAsync(item);
             }
         }
         [Command("github")]
