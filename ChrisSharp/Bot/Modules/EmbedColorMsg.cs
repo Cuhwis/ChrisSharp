@@ -11,7 +11,7 @@ using System.IO;
 using System.Collections;
 using System.Net;
 using System.Linq;
-namespace ChrisSharpBot.Modules
+namespace ChrisSharp.Modules
 {
     class EmbedColorMsg
     {

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using ChrisSharp;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ChrisSharpBot
+namespace ChrisSharp
 {
-    class Program
+    class BotStart
     {
-        static void Main(string[] args) => new Program().RunBotAsync().GetAwaiter().GetResult();
+        public static void StartBot() => new BotStart().RunBotAsync().GetAwaiter().GetResult();
         private DiscordSocketClient _client;
         private CommandService _commands;
         private IServiceProvider _services;
@@ -47,6 +48,7 @@ namespace ChrisSharpBot
 
         public async Task RegisterCommandsAsync()
         {
+            //Event recieving message of user and runs HandleCommandAsync method below
             _client.MessageReceived += HandleCommandAsync;
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
         }

@@ -11,18 +11,27 @@ using System.IO;
 using System.Collections;
 using System.Net;
 using System.Linq;
-using ChrisSharpBot.Modules;
+using ChrisSharp.Modules;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 
-namespace ChrisSharpBot.Modules
+namespace ChrisSharp.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
         [Command("test")]
         public async Task test()
         {
-            await ReplyAsync("https://google.com/");
+            await ReplyAsync("https://bing.com/");
+        }
+        [Command("whoami")]
+        public async Task WhoAmI()
+        {
+            var user = Context.Message.Author;
+            if (user.Id == 205209327487680513 || user.Id == 451585633714962432)
+                await (user as IGuildUser).SendMessageAsync("You are Mrs. Ruaboro");
+            if (user.Id == 354510274411233281)
+                await (user as IGuildUser).SendMessageAsync("You are Mr. Ruaboro");
         }
         public string prefix = "/";
         [Command("ping")]
@@ -71,15 +80,6 @@ namespace ChrisSharpBot.Modules
         public async Task TimeOut(IGuildUser user, double sec = 0)
         {
 
-        }
-        [Command("whoami")]
-        public async Task WhoAmI()
-        {
-            var user = Context.Message.Author;
-            if (user.Id == 205209327487680513 || user.Id == 451585633714962432)
-                await (user as IGuildUser).SendMessageAsync("You are Mrs. Ruaboro");
-            if (user.Id == 354510274411233281)
-                await (user as IGuildUser).SendMessageAsync("You are Mr. Ruaboro");
         }
         [Command("delete")]
         [Summary("Clear an amount of messages from user in the channel")]
@@ -229,11 +229,6 @@ namespace ChrisSharpBot.Modules
                     await ReplyAsync($"{user.Mention} Please use format \"{prefix}linkgithub https://github.com/example\"");
             }
         }
-        [Command("griffsays")]
-        public async Task Likur()
-        {
-            await ReplyAsync("LIKKUUUUUURRRRRRRRRRRR");
-        }
         [Command("bot")]
         public async Task bot()
         {
@@ -241,7 +236,6 @@ namespace ChrisSharpBot.Modules
         }
         [Command("8ball")]
         [Alias("ask")]
-        [RequireUserPermission(GuildPermission.KickMembers)]
         public async Task AskEightBall([Remainder]string args = null)
         {
             // I like using StringBuilder to build out the reply
@@ -307,11 +301,5 @@ namespace ChrisSharpBot.Modules
             // this will reply with the embed
             await ReplyAsync(null, false, embed.Build());
         }
-        [Command("awwskeetskeet")]
-        public async Task skeet()
-        {
-            await ReplyAsync("MOTHA FUCKAAAAAAAAA");
-        }
-
     }
 }
