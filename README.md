@@ -19,7 +19,7 @@
 |1	|User shall be able to log in via discord|	3-Nov-19|	As new user, allow option to log in through Discord site	|Authentication	|Passed|
 |2	|User shall be able to Add bot to new server	|3-Nov-19|	Add bot through Oauth authentication link	|Bot Implementation	|Passed|
 |2.1	|User shall be able to give bot certain permissions	|3-Nov-19|	Once added Check if bot has proper permissions||		Passed|
-|3	|User shall be able to use bot commands	|3-Nov-19|	Use bot command	|Bot Utilization||	Passed|
+|3	|User shall be able to use bot commands	|3-Nov-19|	Use bot command	|Bot Utilization|	Passed|
 |3.1	|User shall be able to Github contact info	|3-Nov-19|	Write github info	||	Passed|
 |3.2	|User shall be able to pull others contact info	|3-Nov-19|	Pull github info	||	Passed|
 |4	|Bot shall be able to connect to any server	|3-Nov-19|	Add bot to another server	Bot| error checking|	Passed|
