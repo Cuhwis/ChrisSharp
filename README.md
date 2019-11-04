@@ -14,8 +14,8 @@
 | 4.2 | Bot shall implement role permissions of user |Test |
 | 4.3| Bot shall user check contact info | Inspection|
 
-|Test #	|Description	|Time	|Test Procedure	|Requirement	Status|
-|--|--|--|--|--|
+|Test #	|Description	|Time	|Test Procedure	|Requirement|	Status|
+|--|--|--|--|--|--|
 |1	|User shall be able to log in via discord|	3-Nov-19|	As new user, allow option to log in through Discord site	|Authentication	Passed|
 |2	|User shall be able to Add bot to new server	|3-Nov-19|	Add bot through Oauth authentication link	|Bot Implementation	Passed|
 |2.1	|User shall be able to give bot certain permissions	|3-Nov-19|	Once added Check if bot has proper permissions||		Passed|
