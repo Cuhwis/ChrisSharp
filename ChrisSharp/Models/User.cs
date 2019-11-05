@@ -11,8 +11,8 @@ namespace ChrisSharp.Models
         public int ID { get; set; }
         public ulong UserID { get; set; }
         public ulong ChannelID { get; set; }
-        public string GitHub { get; set; }
-        public string LinkedIn { get; set; }
-        public string EpicID { get; set; }
+        public string? GitHub { get; set; }
+        public string? LinkedIn { get; set; }
+        public string? EpicID { get; set; }
     }
 }
