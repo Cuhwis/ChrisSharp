@@ -28,8 +28,6 @@ namespace ChrisSharp.Modules
         public async Task WhoAmI()
         {
             var user = Context.Message.Author;
-            if (user.Id == 205209327487680513 || user.Id == 451585633714962432)
-                await (user as IGuildUser).SendMessageAsync("You are Mrs. Ruaboro");
             if (user.Id == 354510274411233281)
                 await (user as IGuildUser).SendMessageAsync("You are Mr. Ruaboro");
         }
