@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using ChrisSharp.Models;
+using ChrisSharp.Data;
 
 namespace ChrisSharp
 {
@@ -31,6 +34,12 @@ namespace ChrisSharp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDbContext<ChrisSharpContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ChrisSharpContext")));
+
+            services.AddDbContext<ChrisSharpContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ChrisSharpContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
