@@ -30,7 +30,8 @@ Collaboration and a way to communicate inter-personally in any environment is a 
   2. System database shall be in SQL
 
 ## Entity Relationship Diagram
-![ERD]([https://github.com/ChrisRuaboro/ChrisSharp/blob/master/DOCS/ERD.JPG](https://github.com/ChrisRuaboro/ChrisSharp/blob/master/DOCS/ERD.JPG))
+![ERD](https://github.com/ChrisRuaboro/ChrisSharp/blob/master/DOCS/ERD.JPG))
+
 
 ## WireFrame
 
