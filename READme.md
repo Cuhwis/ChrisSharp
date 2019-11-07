@@ -52,6 +52,7 @@ Collaboration and a way to communicate inter-personally in any environment is a 
         -Storing data in text files
         -Discord.Net Documentation
         -   What are some future development ideas?
+	- Continous Deployment
         - Add music functionality
         - Gerard's Meme generator
         - Xp System
