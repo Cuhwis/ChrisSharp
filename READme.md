@@ -44,10 +44,10 @@ Collaboration and a way to communicate inter-personally in any environment is a 
 
 3.  Solution
     -   What  **technologies** did you integrate?
-    -Discord.Net
-    -CSS
-    -JS
-    -HTML AgilityPack
+    - Discord.Net
+    - CSS
+    - JS
+    - MVC Template
      -   What are paths that you explored?
         -Storing data in text files
         -Discord.Net Documentation
