@@ -28,7 +28,7 @@ namespace ChrisSharp.Models.Users
                 return NotFound();
             }
 
-            User = await _context.User.FirstOrDefaultAsync(m => m.ID == id);
+            //User = await _context.User.FirstOrDefaultAsync(m => m.ID == id);
 
             if (User == null)
             {

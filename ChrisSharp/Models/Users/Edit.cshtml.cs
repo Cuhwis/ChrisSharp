@@ -30,7 +30,7 @@ namespace ChrisSharp.Models.Users
                 return NotFound();
             }
 
-            User = await _context.User.FirstOrDefaultAsync(m => m.ID == id);
+            //User = await _context.User.FirstOrDefaultAsync(m => m.ID == id);
 
             if (User == null)
             {
@@ -54,22 +54,22 @@ namespace ChrisSharp.Models.Users
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(User.ID))
+                /*if (!UserExists(User.ID))
                 {
                     return NotFound();
                 }
                 else
                 {
                     throw;
-                }
+                }*/
             }
 
             return RedirectToPage("./Index");
         }
 
-        private bool UserExists(int id)
-        {
-            return _context.User.Any(e => e.ID == id);
-        }
+        //private bool UserExists(int id)
+        //{
+        //    return _context.User.Any(e => e.ID == id);
+        //}
     }
 }

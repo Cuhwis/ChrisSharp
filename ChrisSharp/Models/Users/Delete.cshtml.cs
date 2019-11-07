@@ -29,7 +29,7 @@ namespace ChrisSharp.Models.Users
                 return NotFound();
             }
 
-            User = await _context.User.FirstOrDefaultAsync(m => m.ID == id);
+            //User = await _context.User.FirstOrDefaultAsync(m => m.ID == id);
 
             if (User == null)
             {
@@ -45,11 +45,11 @@ namespace ChrisSharp.Models.Users
                 return NotFound();
             }
 
-            User = await _context.User.FindAsync(id);
+            //User = await _context.User.FindAsync(id);
 
             if (User != null)
             {
-                _context.User.Remove(User);
+               // _context.User.Remove(User);
                 await _context.SaveChangesAsync();
             }
 

@@ -34,7 +34,7 @@ namespace ChrisSharp.Models.Users
                 return Page();
             }
 
-            _context.User.Add(User);
+            //_context.User.Add(User);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -29,7 +29,7 @@ namespace ChrisSharp.Modules
         {
             var user = Context.Message.Author;
             if (user.Id == 354510274411233281)
-                await (user as IGuildUser).SendMessageAsync("You are Mr. Ruaboro");
+                await (user as IGuildUser).SendMessageAsync("You are a Scrub");
         }
         public string prefix = "/";
         [Command("ping")]
