@@ -57,8 +57,7 @@ Collaboration and a way to communicate inter-personally in any environment is a 
         - Gerard's Meme generator
         - Xp System
         - Use Azure KV so no one steals my token
-        - Event Logger
-        - 
+        - Event Logger based on channel ID
 4.  **architecture** and  **code** walk-through
     [Code](https://github.com/ChrisRuaboro/ChrisSharp/tree/master/ChrisSharp)
 5.  product  **demonstration** _(cloud-deployed)_
